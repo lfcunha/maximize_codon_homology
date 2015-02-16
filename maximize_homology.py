@@ -121,12 +121,10 @@ class optimizeHomology():
                                     localCodon[sequenceName] = "".join(strList)
             for sequenceName in proteins:
                 self.optimizedSequences[sequenceName].append(localCodon[sequenceName])
-        return self.optimizedSequences
 
     @property
-    def getOptimizedSequence(self):
-        return self.optimize()
-
+    def optimizedSequences(self):
+        return self.__optimizedSequences
 
 def usage():
     print "\n\tScript to maximize the homology of protein sequences\n"
@@ -178,7 +176,8 @@ if __name__ == "__main__":
 
     #optimize sequence homology
     optimizer = optimizeHomology(proteins, dnas, trans)
-    optimizedSequences=optimizer.optimize()
+    optimizer.optimize()
+    optimizedSequences=optimizer.optimizedSequences
 
     originalSequenceOutput = output + "_original.fasta"
     optimizedSequenceOutput = output + "_optimized.fasta"
