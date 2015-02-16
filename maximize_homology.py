@@ -6,11 +6,14 @@ __DATE__ = "Feb 15th 2015"
 '''
 Description:
 Script to Maximize the DNA sequence homology of protein homologues
-it requires BioPython
+
+it requires BioPython for reading inputs
 
 Input:
     1) fasta file with multiple dna sequences
     2) .aln (clustalw) file with protein multiple seq alignment (with gaps)
+    3) output prefix
+    4) optional -v flag: prints result to console
 
 This script maximizes sequence similarity of the 3rd nucleotide of each codon.
 It optimizes not only same aminoacid codons, as well as codons coding different aa.
@@ -57,7 +60,6 @@ class optimizeHomology():
         #ditionary for optimized sequence
         self.optimizedSequences = {protein: [] for protein in self.proteins}
         #auxiliary dictionaries
-        #self.codon_table = {"AAA": "K", "AAC": "N", "AAG": "K", "AAT": "N", "ACA":"T","ACC":"T","ACG":"T","ACT":"T","AGA":"R","AGC":"S","AGG":"R","AGT":"S","ATA":"I","ATC":"I","ATG":"M","ATT":"I","CAA":"Q","CAC":"H","CAG":"Q","CAT":"H","CCA":"P","CCC":"P","CCG":"P","CCT":"P","CGA":"R","CGC":"R","CGG":"R","CGT":"R","CTA":"L","CTC":"L","CTG":"L","CTT":"L","GAA":"E","GAC":"D","GAG":"E","GAT":"D","GCA":"A","GCC":"A","GCG":"A","GCT":"A","GGA":"G","GGC":"G","GGG":"G","GGT":"G","GTA":"V","GTC":"V","GTG":"V","GTT":"V","TAA":"","TAC":"Y","TAG":"","TAT":"Y","TCA":"S","TCC":"S","TCG":"S","TCT":"S","TGA":"","TGC":"C","TGG":"W","TGT":"C","TTA":"L","TTC":"F","TTG":"L","TTT":"F"}
         #self.invertedCodonTable = {'': ['tag', 'taa', 'tga'], 'A': ['gca', 'gcc', 'gcg', 'gct'], 'C': ['tgt', 'tgc'], 'E': ['gag', 'gaa'], 'D': ['gat', 'gac'], 'G': ['ggt', 'ggg', 'gga', 'ggc'], 'F': ['ttt', 'ttc'], 'I': ['atc', 'ata', 'att'], 'H': ['cat', 'cac'], 'K': ['aag', 'aaa'], 'M': ['atg'], 'L': ['ctc', 'ctg', 'cta', 'ctt', 'tta', 'ttg'], 'N': ['aac', 'aat'], 'Q': ['caa', 'cag'], 'P': ['cct', 'ccg', 'ccc', 'cca'], 'S': ['agc', 'agt', 'tcg', 'tca', 'tcc', 'tct'], 'R': ['agg', 'aga', 'cga', 'cgc', 'cgg', 'cgt'], 'T': ['acc', 'aca', 'act', 'acg'], 'W': ['tgg'], 'V': ['gta', 'gtc', 'gtg', 'gtt'], 'Y': ['tat', 'tac']}
         self.aa_nt_space_per_position = {'': {0: ['t'], 1: ['a', 'g'], 2: ['g', 'a']}, 'A': {0: ['g'], 1: ['c'], 2: ['a', 'c', 'g', 't']}, 'C': {0: ['t'], 1: ['g'], 2: ['t', 'c']}, 'E': {0: ['g'], 1: ['a'], 2: ['g', 'a']}, 'D': {0: ['g'], 1: ['a'], 2: ['t', 'c']}, 'G': {0: ['g'], 1: ['g'], 2: ['t', 'g', 'a', 'c']}, 'F': {0: ['t'], 1: ['t'], 2: ['t', 'c']}, 'I': {0: ['a'], 1: ['t'], 2: ['c', 'a', 't']}, 'H': {0: ['c'], 1: ['a'], 2: ['t', 'c']}, 'K': {0: ['a'], 1: ['a'], 2: ['g', 'a']}, 'M': {0: ['a'], 1: ['t'], 2: ['g']}, 'L': {0: ['c', 't'], 1: ['t'], 2: ['c', 'g', 'a', 't']}, 'N': {0: ['a'], 1: ['a'], 2: ['c', 't']}, 'Q': {0: ['c'], 1: ['a'], 2: ['a', 'g']}, 'P': {0: ['c'], 1: ['c'], 2: ['t', 'g', 'c', 'a']}, 'S': {0: ['a', 't'], 1: ['g', 'c'], 2: ['c', 't', 'g', 'a']}, 'R': {0: ['a', 'c'], 1: ['g'], 2: ['g', 'a', 'c', 't']}, 'T': {0: ['a'], 1: ['c'], 2: ['c', 'a', 't', 'g']}, 'W': {0: ['t'], 1: ['g'], 2: ['g']}, 'V': {0: ['g'], 1: ['t'], 2: ['a', 'c', 'g', 't']}, 'Y': {0: ['t'], 1: ['a'], 2: ['t', 'c']}}
 
@@ -140,10 +142,11 @@ if __name__ == "__main__":
     trans = TranslateSequence()
 
     #get arguments
-    parser = argparse.ArgumentParser(description='scrap pubmlst.org for mslt')
+    parser = argparse.ArgumentParser(description='Optimize sequence homology while retaining aminoacid sequence')
     parser.add_argument('--dna', "-d", help="fasta file with dna sequences")
     parser.add_argument('--protein_alignment', "-p", help=".aln clustalw sequence alignment")
     parser.add_argument('--output', "-o", help="output prefix")
+    parser.add_argument("--verbose", "-v", help="print output to console", action='store_true')
     args = parser.parse_args()
     if args.dna==None or args.protein_alignment==None or args.output==None:
         usage()
@@ -221,7 +224,8 @@ if __name__ == "__main__":
         print ">" + sequenceName +" original"     #" " + "original dna sequence"
         print dnas[sequenceName]
 
-    #printToConsole()
+    if args.verbose:
+    	printToConsole()
 
 
 
