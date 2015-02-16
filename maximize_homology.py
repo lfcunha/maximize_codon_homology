@@ -18,6 +18,9 @@ Input:
 This script maximizes sequence similarity of the 3rd nucleotide of each codon.
 It optimizes not only same aminoacid codons, as well as codons coding different aa.
 
+After optimziation, it validates that optimized dna sequence codes the same aa sequence as the 
+original sequence, throwing an error otherwise
+
 As is, it does not optimize the first and second positions of the codon.
 
 Only Ser, Arg, and Leu have 6 codons, with alternative 1st/2nd positions. However,
