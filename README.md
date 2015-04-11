@@ -1,9 +1,10 @@
 # maximize_codon_homology
-Python script to maximize DNA sequence homology while retaining aminoacid sequence
+##Python script to maximize DNA sequence homology while retaining aminoacid sequence##
 
 
-it requires BioPython for reading inputs
-Input:
+Requirements: BioPython (for reading input fasta files)
+
+Input arguments:
     1) fasta file with multiple dna sequences
     2) .aln (clustalw) file with protein multiple seq alignment (with gaps)
     3) output prefix
