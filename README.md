@@ -15,4 +15,4 @@ After optimziation, it validates that optimized dna sequence codes the same aa s
 original sequence, throwing an error otherwise. (It optimizes only the 3rd nt, not the first two) .
 
 Usage: 
-maximize_homology [-h] [--dna FASTA] [--protein_alignment ALIGNMENT] [--output OUTPUT_PREFIX]
+<p><code>maximize_homology [-h] [--dna FASTA] [--protein_alignment ALIGNMENT] [--output OUTPUT_PREFIX]</code></p>
