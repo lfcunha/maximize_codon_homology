@@ -4,7 +4,7 @@
 
 Requirements: BioPython (for reading input fasta files)
 
-Input arguments:
+<p>Input arguments:</p>
     1) fasta file with multiple dna sequences
     2) .aln (clustalw) file with protein multiple seq alignment (with gaps)
     3) output prefix
