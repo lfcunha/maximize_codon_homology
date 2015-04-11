@@ -2,7 +2,8 @@
 ##Python script to maximize DNA sequence homology while retaining aminoacid sequence##
 
 
-Requirements: BioPython (for reading input fasta files)
+Dependencies: 
+    - BioPython (for reading input fasta files)
 
 <p>Input arguments:</p>
     1) fasta file with multiple dna sequences
